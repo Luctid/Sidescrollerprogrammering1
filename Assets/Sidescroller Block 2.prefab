@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4646981711926208371}
   - component: {fileID: 5845742095562320008}
   - component: {fileID: 8816556430695308721}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sidescroller Block 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

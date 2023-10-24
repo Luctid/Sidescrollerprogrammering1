@@ -13,11 +13,6 @@ public class PhysicCharacterController : MonoBehaviour
     public CharacterState JumpingState = CharacterState.Airborne;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
     //Gravity
     public float GravityPerSecond = 160.0f;
     public float GroundLevel = 0.0f;
@@ -26,41 +21,44 @@ public class PhysicCharacterController : MonoBehaviour
     //Jump
     public float JumpSpeedFactor = 3.0f;
     public float JumpMaxHeight = 150.0f;
-    private float JumpHeightDelta = 0.0f;
+    public float JumpHeightDelta = 0.0f;
+
 
     //Movment
     public float MovmentSpeedPerSecond = 10.0f;
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
+        {
+            JumpingState = CharacterState.Jumping; //Set character to jumping
+            JumpHeightDelta = 0.0f; //Restart Counting Jumpdistance
+
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
 
         Vector3 characterVelocity = myRigiBody.velocity;
         characterVelocity.x = 0.0f;
-        characterVelocity.y = 0.0f;
 
-        if (JumpingState != CharacterState.Jumping)
-        {
-            JumpingState = CharacterState.Grounded;
-        }
+
 
         //Up
         if (Input.GetKey(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
-
-
-
             JumpingState = CharacterState.Jumping;
             JumpHeightDelta = 0.0f;
-            
+
         }
         if (JumpingState == CharacterState.Jumping)
         {
-          
-            
-            float totalJumpMovmentThisFrame = MovmentSpeedPerSecond * JumpSpeedFactor;
-            characterVelocity.y += totalJumpMovmentThisFrame;
-            
-            JumpHeightDelta += totalJumpMovmentThisFrame;
+            float jumpMovment = MovmentSpeedPerSecond * JumpSpeedFactor;
+            characterVelocity.y = jumpMovment;
+
+            JumpHeightDelta += jumpMovment * Time.deltaTime;
             if (JumpHeightDelta >= JumpMaxHeight)
             {
                 JumpingState = CharacterState.Airborne;
@@ -71,11 +69,11 @@ public class PhysicCharacterController : MonoBehaviour
         //Down
 
 
-        
+
         //Left
         if (Input.GetKey(KeyCode.A))
         {
-           
+
             characterVelocity.x -= MovmentSpeedPerSecond;
         }
         //Right
@@ -84,8 +82,9 @@ public class PhysicCharacterController : MonoBehaviour
             characterVelocity.x += MovmentSpeedPerSecond;
         }
         myRigiBody.velocity = characterVelocity;
-        
-
     }
 }
+
+
+
 
