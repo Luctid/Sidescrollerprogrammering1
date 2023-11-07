@@ -111,6 +111,7 @@ public class CharacterController : MonoBehaviour
             if (gracityPosition.y < GroundLevel) { gracityPosition.y = GroundLevel; }
             transform.position = gracityPosition;
 
+
         }
 
     }
