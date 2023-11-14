@@ -8,6 +8,7 @@ public class GoombaEnemy : MonoBehaviour
     public Rigidbody2D myRigiBody = null;
 
     public float MovmentSpeedPerSecond = 10.0f;
+    public int MovmentSign = 1;
     void Start()
     {
         
@@ -20,7 +21,7 @@ public class GoombaEnemy : MonoBehaviour
 
         characterVelocity.x = 0;
 
-        characterVelocity += MovmentSpeedPerSecond * transform.right.normalized;
+        characterVelocity += MovmentSign * MovmentSpeedPerSecond * transform.right.normalized;
 
         myRigiBody.velocity = characterVelocity;
 

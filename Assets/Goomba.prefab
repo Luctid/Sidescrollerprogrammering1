@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e019a03cc4ddf154dbcd48421bb5e81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myEnemyScript: {fileID: 0}
 --- !u!61 &6548415959436158402
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e019a03cc4ddf154dbcd48421bb5e81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myEnemyScript: {fileID: 0}
 --- !u!61 &1762201351031966752
 BoxCollider2D:
   m_ObjectHideFlags: 0

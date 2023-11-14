@@ -8,7 +8,11 @@ using UnityEngine;
 
 public class PhysicCharacterController : MonoBehaviour
 {
+
+    public SpriteRenderer mySpriteRenderer = null;
+    public List<Sprite> CharacterSprites = new List<Sprite>();
     public Rigidbody2D myRigiBody = null;
+
 
     public CharacterState JumpingState = CharacterState.Airborne;
 
@@ -27,9 +31,26 @@ public class PhysicCharacterController : MonoBehaviour
     //Movment
     public float MovmentSpeedPerSecond = 10.0f;
 
+    //Player Health
+    public int HP = 0;
+
+    
 
     private void Update()
     {
+        int hpCopy = HP-1;
+        if (hpCopy < 0)
+        {
+            hpCopy = 0;
+        }
+        if (hpCopy >= CharacterSprites.Count)
+        {
+            hpCopy = CharacterSprites.Count - 1;
+        }
+
+
+        mySpriteRenderer.sprite = CharacterSprites[hpCopy];
+        
         if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
             JumpingState = CharacterState.Jumping; //Set character to jumping
