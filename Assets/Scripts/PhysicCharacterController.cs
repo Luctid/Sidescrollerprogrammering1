@@ -8,7 +8,8 @@ using UnityEngine;
 
 public class PhysicCharacterController : MonoBehaviour
 {
-
+    public PlayerDataScript SaveFile = null;
+    public GameObject myCollisionCheckObject = null;
     public SpriteRenderer mySpriteRenderer = null;
     public List<Sprite> CharacterSprites = new List<Sprite>();
     public Rigidbody2D myRigiBody = null;
@@ -38,6 +39,15 @@ public class PhysicCharacterController : MonoBehaviour
 
     private void Update()
     {
+        if(HP < 0)
+        {
+          Sceneloader mySceneloader = gameObject.GetComponent<Sceneloader>();
+            if (mySceneloader != null)
+            {
+                mySceneloader.LoadScene("GameOverScene");
+            }
+        }
+
         int hpCopy = HP-1;
         if (hpCopy < 0)
         {
@@ -48,8 +58,14 @@ public class PhysicCharacterController : MonoBehaviour
             hpCopy = CharacterSprites.Count - 1;
         }
 
-
-        mySpriteRenderer.sprite = CharacterSprites[hpCopy];
+        if(mySpriteRenderer.sprite != CharacterSprites[hpCopy])
+        {
+            mySpriteRenderer.sprite = CharacterSprites[hpCopy];
+            Destroy(GetComponent<PolygonCollider2D>());
+            var polygonCollider = gameObject.AddComponent<PolygonCollider2D>();
+            myCollisionCheckObject.transform.position = polygonCollider.ClosestPoint(myCollisionCheckObject.transform.position);
+        }
+       
         
         if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
@@ -104,6 +120,13 @@ public class PhysicCharacterController : MonoBehaviour
         }
         myRigiBody.velocity = characterVelocity;
     }
+
+    public void TakeDamage(int aHPValue)
+    {
+        HP += aHPValue;
+    }
+
+
 }
 
 
