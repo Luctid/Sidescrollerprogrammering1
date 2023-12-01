@@ -65,7 +65,7 @@ public class PhysicCharacterController : MonoBehaviour
             var polygonCollider = gameObject.AddComponent<PolygonCollider2D>();
             myCollisionCheckObject.transform.position = polygonCollider.ClosestPoint(myCollisionCheckObject.transform.position);
         }
-       
+        
         
         if (Input.GetKeyDown(KeyCode.W) && JumpingState == CharacterState.Grounded)
         {
